@@ -1,0 +1,47 @@
+{
+
+    "short_name": "Tiendita",
+    "name":"Lista de compras",
+    "start_url":"PaginaInicial.html",
+    "background_color": "#0b2e41",
+    "display": "standalone",
+    "orientation":"portrait",
+    "theme_color":"#10ff8d",
+    "icons":[
+
+        {
+            "src": "img/icono/i1.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "img/icono/i2.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+    
+        {
+            "src": "img/icono/i3.png",
+            "type": "img/image/png",
+            "sizes": "64x64"
+        },
+        {
+            "src": "img/icono/i4.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "img/icono/i5.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "img/icono/i6.png",
+            "type": "image/png",
+            "sizes": "145x145"
+        }
+        
+    ]
+
+
+}

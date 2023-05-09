@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Principal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <link type="image/png" sizes="128x128" rel="icon" href="../icono.ico">
+  <link rel="manifest" href="/Manifest.json">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Tiendita</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="pages/about.html">Contacto</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Listas
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="listas">
+                <a class="dropdown-item" href="pages/nuevaLista.html">Agregar nueva lista</a>
+                
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorias
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="listas">
+                <a class="dropdown-item" href="pages/nuevaCategoria.html">Agregar nueva categoria</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Productos
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="Productos">
+                <a class="dropdown-item" href="pages/nuevoProducto.html">Agregar nuevo producto</a>
+                <a class="dropdown-item" href="pages/verProductos.html">Ver productos</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="text-center">Lista</h1>
+          
+      </div>
+    </div>
+    
+    <div id="productosSeleccionados">
+    </div>
+
+</div>
+      <!-- Aqui deben de ir los articulos marcados con un checbox -->
+
+      <script src="js/funciones.js"></script>
+      <script src="js/pouchdb-8.0.1.min.js"></script>
+      <script src="js/base.js"></script>
+      <script src="js/funcionamientoBD.js"></script>
+
+      <script src="js/app.js"></script>
+
+      
+</body>
+</html>

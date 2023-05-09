@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuevo Producto</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <link type="image/png" sizes="128x128" rel="icon" href="../icono.ico">
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body onload="llenadoCampos('producto')">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="../index.html">Tiendita</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">Contacto</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Listas
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="listas">
+                <a class="dropdown-item" href="agregarLista.html">Agregar nueva lista</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorias
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="categorias">
+                <a class="dropdown-item" href="nuevaCategoria.html">Agregar nueva categoria</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Productos
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="listas">
+                <a class="dropdown-item" href="nuevoProducto.html">Agregar nuevo producto</a>
+                <a class="dropdown-item" href="verProductos.html">Ver productos</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1 class="text-center">Nuevo Producto</h1>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="nombreProducto">Nombre:</label>
+              <input type="text" class="form-control" id="nombreProducto" placeholder="Introduce el nombre del producto">
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="text" class="form-control" id="cantidad" placeholder="Cantidad">
+              </div>
+
+            <div class="form-group">
+                <label for="Precio">Precio:</label>
+                <input type="text" class="form-control" id="precio" placeholder="Precio">
+            </div>
+
+            <div class="form-group">
+              <label for="categoria">Categoría:</label>
+				<select class="form-control" id="categoria">
+					<option value="" disabled selected>Selecciona una categoría</option>
+				</select>
+            </div>
+
+            <div class="form-group">
+                <label for="nota">Nota:</label>
+				<textarea class="form-control" id="nota"></textarea>
+            </div>
+
+             <div class="form-group">
+                <label>Imagen:</label>
+                <input id="imagen" type="file" class="form-control-file" accept="image/png, .jpeg, .jpg" required><br>
+                <img class="img-favi" id="imgFile" src="../img/imgSubir.png" alt="Imagen" style="display: block; height: 50px; width: 50px;">
+            </div> 
+            <button id="alta" onclick="btnAltaProducto();" class="btn btn-primary btn-block">Agregar</button>
+          </div>
+        </div>
+      </div>
+    <script src="../js/pouchdb-8.0.1.min.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../js/funcionamientoBD.js"></script>
+    <script src="../js/funciones.js"></script>
+  </body>
+</html> 

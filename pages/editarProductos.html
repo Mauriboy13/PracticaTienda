@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar productos</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <link type="image/png" sizes="128x128" rel="icon" href="../icono.ico">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
+
+</head>
+<style>
+    .fas {
+      float: right;
+      margin-right: 25px;
+      font-size: 20px;
+    }
+</style>
+<body onload="llenadoCampos('producto')">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="../index.html">Tiendita</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">Contacto</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Listas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="listas">
+              <a class="dropdown-item" href="agregarLista.html">Agregar nueva lista</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categorias
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="categorias">
+              <a class="dropdown-item" href="nuevaCategoria.html">Agregar nueva categoria</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Productos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="listas">
+              <a class="dropdown-item" href="nuevoProducto.html">Agregar nuevo producto</a>
+              <a class="dropdown-item" href="verProductos.html">Ver productos</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+
+  <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 class="text-center">Editar Producto</h1>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nombreProducto">Nombre:</label>
+            <input type="text" class="form-control" id="nombreProducto" placeholder="Introduce el nombre del producto">
+          </div>
+
+          <div class="form-group">
+              <label for="cantidad">Cantidad:</label>
+              <input type="text" class="form-control" id="cantidad" placeholder="Cantidad">
+            </div>
+
+          <div class="form-group">
+              <label for="Precio">Precio:</label>
+              <input type="text" class="form-control" id="precio" placeholder="Precio">
+          </div>
+
+          <div class="form-group">
+            <label for="categoria">Categoría:</label>
+      <select class="form-control" id="categoria">
+        <option value="" disabled selected>Selecciona una categoría</option>
+      </select>
+          </div>
+
+          <div class="form-group">
+              <label for="nota">Nota:</label>
+      <textarea class="form-control" id="nota"></textarea>
+          </div>
+
+           <div class="form-group">
+              <label>Imagen:</label>
+              <input id="imagen" type="file" class="form-control-file" accept="image/png, .jpeg, .jpg" required><br>
+              <img class="img-favi" id="imgFile" src="../img/imgSubir.png" alt="Imagen" style="display: block; height: 50px; width: 50px;">
+          </div> 
+          <button id="alta" onclick="btnAltaProducto();" class="btn btn-primary btn-block">Editar</button>
+        </div>
+      </div>
+    </div>
+
+<script>
+ 
+//Base de datos para Categorias
+var bdCategoria = new PouchDB("tiendita_Categoria");
+var bdProductos = new PouchDB("tiendita_Productos");
+var bdLista =  new PouchDB("tiendita_listas")
+
+function btnAltaCategoria() {
+    var categoria = document.getElementById('nombreCategoria').value;
+       if (categoria) {
+        bdCategoria.post({categoria: categoria}).then(function(respuesta) {
+          if (respuesta.ok) {
+            swal({
+              title: "Categoria guardada",
+              icon: "../img/faviAlert.gif",
+            });
+            limpiarcampos('nueva-categoria');
+          }
+        });
+       }
+       else {
+        swal({
+          title: "Error",
+          text:"Ocurrio un Error",
+          icon: "error"
+        });
+        console.log('Error');
+      }
+  }
+
+//Dar de alta un nuevo producto
+function btnAltaProducto() {
+  var nombreA = document.getElementById('nombreProducto').value;
+  var cantidadA = document.getElementById('cantidad').value;
+  var precioA = document.getElementById('precio').value;
+  var categoriaA = document.getElementById('categoria').value;
+  var notaA = document.getElementById('nota').value;
+  var imagenA = document.getElementById('imgFile').src;
+  if (nombreA && precioA && cantidadA && categoriaA && notaA) {
+    bdProductos.post({
+      nombreA: nombreA,
+      precioA: precioA,
+      cantidadA: cantidadA,
+      categoriaA: categoriaA,
+      notaA: notaA,
+      imagenA: imagenA
+    }).then(function(respuesta) {
+      if (respuesta.ok) {
+        swal({
+          title: "Producto guardado",
+          icon: "../img/faviAlert.gif",
+        });
+        limpiarcampos('nuevo-producto');
+      }
+    });
+  }
+  else{
+    swal({
+      title: "Error",
+      text:"Ocurrio un Error",
+      icon: "error"
+    });
+    console.log('Error');
+  }
+};
+/////////////
+
+
+// Cambia la imagen a subir en nuevo producto
+document.getElementById('imagen').addEventListener('change', (event) => {
+  console.log('console');
+  var file = event.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function(event) {
+      var img = document.getElementById('imgFile');
+      img.src= event.target.result;
+      img.style = 'display: block; height: 50px; width: 50px; margin-left: 27.5%;';
+  }
+  reader.readAsDataURL(file);
+});
+
+
+
+function llenadoCampos(valor){
+if (valor == 'producto'){
+  var bdCategoria = new PouchDB("tiendita_Categoria");
+  // console.log('llenadoCampos');
+  bdCategoria.allDocs({include_docs: true}).then(function(documentos){
+      for (var i = 0; i < documentos.rows.length; i++) {
+          var element = documentos.rows[i].doc;
+          var option = document.createElement("option");
+          option.value = element.categoria;
+          option.text = element.categoria;
+          document.getElementById('categoria').add(option);
+      }
+  });
+}
+}
+
+
+
+///////////
+//Mostrar productos
+function vistaProductos(){
+  bdProductos.allDocs({
+    include_docs: true
+  }).then(function(documentos) {
+    var htmlProductos = "";
+    for (var i = 0; i < documentos.rows.length; i++) {
+      var producto = documentos.rows[i].doc;
+      htmlProductos += "<div style='display: flex; margin-bottom: 20px; margin-top: 10px; background:#D4F974;'>";
+
+      htmlProductos += "<div style='margin-right: 20px; margin-left:10px; margin-top: 30px;'>";
+      htmlProductos += "<img src = '" + producto.imagenA + "' alt='Imagen' style='width: 100px;'>";
+      htmlProductos += "</div>";
+      htmlProductos += "<div>";
+      htmlProductos += "<p><strong id>Nombre:</strong> " + producto.nombreA+ "</p>";
+      htmlProductos += "<p><strong>Categoría:</strong> " + producto.categoriaA+"</p>";
+      htmlProductos += "<p><strong>Nota:</strong> " + producto.notaA + "</p>";
+      htmlProductos += "<div>";
+      htmlProductos += "<label><input type='checkbox' class='producto-checkbox' data-id-producto='" + producto._id + "'>Agregar</label>";
+      htmlProductos += "</div>";
+      htmlProductos += "<button onclick='editarProducto(\"" + producto._id + "\")'>Editar</button>";
+
+ 
+      htmlProductos += "</div>";
+      htmlProductos += "</div>";
+    }
+    document.getElementById("productosContainer").innerHTML = htmlProductos;
+    document.getElementById("agregarCarrito").addEventListener("click", agregarAlCarrito);
+  });
+};
+///
+// Obtener el ID del producto seleccionado desde la URL
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+// Inicializar la base de datos
+const db = new PouchDB('productos');
+
+// Obtener el documento correspondiente al ID del producto
+db.get(id).then(function(doc) {
+  // Llenar los campos de edición con los datos del documento
+  document.getElementById('nombreProducto').value = doc.nombre;
+  document.getElementById('cantidad').value = doc.cantidad;
+  document.getElementById('precio').value = doc.precio;
+  document.getElementById('categoria').value = doc.categoria;
+  document.getElementById('nota').value = doc.nota;
+}).catch(function(err) {
+  console.log(err);
+});
+
+// Función para actualizar un producto en la base de datos
+function actualizarProducto() {
+  // Obtener los valores de los campos de edición
+  const nombre = document.getElementById('nombreProducto').value;
+  const cantidad = document.getElementById('cantidad').value;
+  const precio = document.getElementById('precio').value;
+  const categoria = document.getElementById('categoria').value;
+  const nota = document.getElementById('nota').value;
+
+  // Obtener el documento correspondiente al ID del producto
+  db.get(id).then(function(doc) {
+    // Actualizar los campos del documento con los valores de los campos de edición
+    doc.nombre = nombre;
+    doc.cantidad = cantidad;
+    doc.precio = precio;
+    doc.categoria = categoria;
+    doc.nota = nota;
+
+    // Guardar el documento actualizado en la base de datos
+    return db.put(doc);
+  }).then(function() {
+    // Mostrar un mensaje de éxito
+    swal({
+      title: "Producto actualizado",
+      text: "El producto se ha actualizado correctamente.",
+      icon: "success",
+      button: "Aceptar",
+    }).then(function() {
+      // Redirigir al usuario a la página de ver productos
+      window.location.href = "verProductos.html";
+    });
+  }).catch(function(err) {
+    console.log(err);
+  });
+}
+
+//
+</script>
+  <script src="../js/funciones.js"></script>
+  <script src="../js/pouchdb-8.0.1.min.js"></script>
+  <script src="../js/base.js"></script>
+  <script src="../js/funcionamientoBD.js"></script>
+</body>
+</html>
