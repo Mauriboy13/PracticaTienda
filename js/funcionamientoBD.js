@@ -11,7 +11,7 @@ function btnAltaCategoria() {
           if (respuesta.ok) {
             swal({
               title: "Categoria guardada",
-              icon: "../img/faviAlert.gif",
+            icon: "../img/icono/faviAlert.ico",
             });
             limpiarcampos('nueva-categoria');
           }
